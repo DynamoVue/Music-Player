@@ -10,6 +10,9 @@ const progressContainer = document.getElementById('progress-container');
 const title = document.getElementById('title');
 const cover = document.getElementById('cover');  
 
+const currentTime = document.querySelector('.time-container .current');
+const durationTime = document.querySelector('.time-container .total');
+
 const songs = ['CastleOnTheHill', 'Perfect', 'Photograph']; 
 
 //keep track of current Song
@@ -72,7 +75,11 @@ function updateProgress(e) {
 
     const progressPercent = currentTime / duration * 100;
 
-    progress.style.width = progressPercent + "%"; 
+    progress.style.width = progressPercent + "%";
+    // Update current time
+    updateCurrentTime();
+    // Set Duration Time
+    setDurationTime();
 } 
 
 // set Progress Bar
@@ -81,6 +88,32 @@ function setProgress(e) {
     const progressPercent = e.offsetX / this.clientWidth;
 
     audio.currentTime = audio.duration * progressPercent;
+}
+
+// set Audio TimeStamp
+
+function setDurationTime() {
+    const minute = Math.floor(audio.duration / 60);
+    const second = Math.floor(audio.duration % 60);
+
+    if (second < 0) {
+        second = `0${second}`
+    }
+
+    durationTime.innerText = `${minute}:${second}`;
+}
+
+function updateCurrentTime() {
+    const minute = Math.floor(audio.currentTime / 60);
+    let second = Math.floor(audio.currentTime % 60);
+
+    console.log(minute);
+
+    if (second < 10) {
+        second = `0${second}`
+    }
+
+    currentTime.innerText = `${minute}:${second}`;
 }
 
 // Event Listeners
@@ -111,7 +144,6 @@ prevBtn.addEventListener('click', function(e) {
 // Handle Time/Song Update
 
 audio.addEventListener('timeupdate', updateProgress);
-
 
 // handle progress bar
 

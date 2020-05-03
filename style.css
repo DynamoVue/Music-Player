@@ -117,8 +117,15 @@ body {
     background-color: #fe8daa;
     border-radius: 5px;
     height: 100%;
-    width: 40%;
+    width: 0%;
     transition: width .1s ease-in;
+}
+
+.time-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 0px;
 }
 
 @keyframes rotate {
