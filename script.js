@@ -76,10 +76,10 @@ function updateProgress(e) {
     const progressPercent = currentTime / duration * 100;
 
     progress.style.width = progressPercent + "%";
-    // Update current time
-    updateCurrentTime();
     // Set Duration Time
     setDurationTime();
+    // Update current time
+    updateCurrentTime();
 } 
 
 // set Progress Bar
@@ -93,21 +93,24 @@ function setProgress(e) {
 // set Audio TimeStamp
 
 function setDurationTime() {
-    const minute = Math.floor(audio.duration / 60);
-    const second = Math.floor(audio.duration % 60);
+    if (audio.duration) {
+        const minute = Math.floor(audio.duration / 60);
+        let second = Math.floor(audio.duration % 60);
 
-    if (second < 0) {
-        second = `0${second}`
+        if (second < 0) {
+            second = `0${second}`
+        }
+
+        durationTime.innerText = `${minute}:${second}`;
+    } else {
+        durationTime.innerText = `0:00`;
     }
 
-    durationTime.innerText = `${minute}:${second}`;
 }
 
 function updateCurrentTime() {
     const minute = Math.floor(audio.currentTime / 60);
     let second = Math.floor(audio.currentTime % 60);
-
-    console.log(minute);
 
     if (second < 10) {
         second = `0${second}`
